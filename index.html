@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<link rel=stylesheet href=index.css>
+		<script src=assets/js/qTiny.js></script>
+		<script src=assets/js/lemon.js></script>
+		<script src=assets/js/map.js></script>
+		<script src=assets/js/maketh.js></script>
+		<script src=assets/js/nani.js></script>
+	</head>
+	<body>
+		<script src=assets/js/tooltip.js></script>
+		<div id=drag></div>
+		<div id=space>
+			<img id=mailman src=assets/img/mailman.png draggable=false hidden>
+		</div>
+		<div id=msg><div></div></div>
+		<div id=ctrl><img src="assets/img/play.png" disabled draggable=false><img src="assets/img/pause.png" disabled draggable=false><img src="assets/img/array.png" draggable=false disabled><img src="assets/img/sortdist.png" draggable=false><div><div></div></div></div>
+		<div id=msg_sel hidden>
+			<dim></dim>
+			<div id=win><table><tbody></tbody></table></div>
+			<label>Select the locations for the mailman to send messages to.</label>
+			<div id=btn><div disabled>Confirm</div><div>Reset</div></div>
+		</div>
+		<div id=dropdown>
+			<dim></dim>
+			<label>Click anywhere; drop `.csv` file; drag or paste `.csv` text here.</label>
+		</div>
+		<div id=msg_write hidden>
+			<dim></dim>
+			<div>
+				<label>Who's the recipient?</label>
+				<input id=msg_write_input type=text>
+				<input id=msg_write_date type=datetime-local>
+				<label class=btn>Nevermind...</label>
+			</div>
+		</div>
+		<script src=index.js></script>
+		<script src=assets/js/stepper.js></script>
+	</body>
+</html>

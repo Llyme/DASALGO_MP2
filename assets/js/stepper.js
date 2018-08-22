@@ -137,32 +137,42 @@ stepper.arrange = _ => {
 	let doc = map.traverse(array, h, h + " Post Office", l);
 	let res = [];
 
-	for (let x = 1; x < doc.path.length; x++) {
-		array[h][doc.path[x - 1]].paths[doc.path[x]]
-			.setAttribute("track", 1);
+	let office_label_txt = "";
+	let office_label = array[h][h + " Post Office"].label;
+	office_label.innerHTML = "";
 
-		let label = array[h][doc.path[x]].label;
-		label.innerHTML = "";
+	for (let x = 1; x < doc.path.length; x++) {
+		let a = array[h][doc.path[x-1]];
+		let b_name = doc.path[x];
+		let n = a.parent[b_name] || a.children[b_name];
+
+		a.paths[b_name].setAttribute("track", 1);
+
+		let label = array[h][b_name].label;
+		label.innerHTML = n + "<br><small>" + b_name + "</small>";
+		label.removeAttribute("hidden");
+
+		office_label_txt += n + " + ";
+		office_label.innerHTML += "<br><small>" + b_name + "</small>";
 
 		for (let y in s) {
 			let v = address_selected[s[y]]
 
-			if (v.address.name == doc.path[x]) {
+			if (v.address.name == b_name) {
 				label.innerHTML +=
-					"<small>" + v.div.innerHTML.split("<br>")[0] +
-					"</small><br>";
+					"<br><small>" + v.div.innerHTML.split("<br>")[0] +
+					"</small>";
 
 				c(s[y], 0, 0);
 				c(s[y], 1, res.push(s[y]) - 1);
 			}
 		}
-
-		if (label.innerHTML) {
-			label.innerHTML = label.innerHTML.slice(0, -4);
-
-			label.removeAttribute("hidden");
-		}
 	}
+
+	office_label.innerHTML =
+		office_label_txt.slice(0, -3) + " = " + doc.length +
+		office_label.innerHTML;
+	office_label.removeAttribute("hidden");
 
 	array_tag.sorted = res;
 	stepper.key = doc;
@@ -195,6 +205,7 @@ stepper.mailman = _ => {
 
 	if (!s.length) {
 		let v = array[h][h + " Post Office"];
+		v.label.setAttribute("hidden", 1);
 
 		if (u.length) {
 			v.pnt.removeAttribute("selected");
